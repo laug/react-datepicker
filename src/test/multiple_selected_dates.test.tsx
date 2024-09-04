@@ -11,24 +11,15 @@ type OmitUnion<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
 
 describe("Multiple Dates Selected", function () {
   function getDatePicker(
-    extraProps: Partial<
-      Pick<
-        DatePickerProps,
-        | "selectsMultiple"
-        | "shouldCloseOnSelect"
-        | "disabledKeyboardNavigation"
-        | "onSelect"
-      >
-    > &
-      OmitUnion<
-        DatePickerProps,
-        | "selectsMultiple"
-        | "onChange"
-        | "shouldCloseOnSelect"
-        | "disabledKeyboardNavigation"
-        | "onSelect"
-        | "selectsRange"
-      >,
+    extraProps: OmitUnion<
+      DatePickerProps,
+      | "selectsMultiple"
+      | "onChange"
+      | "shouldCloseOnSelect"
+      | "disabledKeyboardNavigation"
+      | "onSelect"
+      | "selectsRange"
+    >,
   ) {
     return render(
       <DatePicker
@@ -44,7 +35,6 @@ describe("Multiple Dates Selected", function () {
 
   it("should handle text format for no selected date", () => {
     const { container: datePicker } = getDatePicker({
-      selectsMultiple: true,
       selectedDates: [],
     });
 
@@ -56,7 +46,6 @@ describe("Multiple Dates Selected", function () {
 
   it("should handle text format for one selected date", () => {
     const { container: datePicker } = getDatePicker({
-      selectsMultiple: true,
       selectedDates: [new Date("2024/01/01")],
     });
 
@@ -68,7 +57,6 @@ describe("Multiple Dates Selected", function () {
 
   it("should handle text format for two selected dates", () => {
     const { container: datePicker } = getDatePicker({
-      selectsMultiple: true,
       selectedDates: [new Date("2024/01/01"), new Date("2024/01/15")],
     });
 
@@ -80,7 +68,6 @@ describe("Multiple Dates Selected", function () {
 
   it("should handle text format for more than two selected dates", () => {
     const { container: datePicker } = getDatePicker({
-      selectsMultiple: true,
       selectedDates: [
         new Date("2024/01/01"),
         new Date("2024/01/15"),
